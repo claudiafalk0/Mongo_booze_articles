@@ -60,16 +60,20 @@ app.get("/all", function(req, res) {
 
 app.get('/scrape', function(req, res){
 
-  axios.get("https://www.liquor.com/mosaic/shots/").then(function(response) {
+  axios.get("https://www.liquor.com/").then(function(response) {
     var $ = cheerio.load(response.data);
     
-    $("#mosaic").each(function (i, element) {
+    $(".post").each(function (i, element) {
       
-      var title = $(element).find('.overlay').toString().split('/')[2].replace(/-/g, ' ').replace(/\b[a-z]/g, function(chr){
-          return chr.toUpperCase();
-      });
+    //   var title = $(element).find('.overlay').toString().split('/')[2].replace(/-/g, ' ').replace(/\b[a-z]/g, function(chr){
+    //       return chr.toUpperCase();
+    //   });
+    //   var link = $(element).find('a').attr("href");
+      var img = $(element).find('.post-thumb').attr('src');
+    //   toString().split('(')[1].split(')')[0].replace(/&apos;/g,"");
+    var title = $(element).find('h3').text().replace(/\s/g,'').replace('Drinks&Spirits', "").replace(/([a-z])([A-Z])/g, '$1 $2');
+    // .replace(/\/n/g, "").replace(/\/t/g, "");
       var link = $(element).find('a').attr("href");
-      var img = $(element).find('.clickable').toString().split('(')[1].split(')')[0].replace(/&apos;/g,"");
       
       // Save these results in an object that we'll push into the results array we defined earlier
       db.scrapedData.insert({
