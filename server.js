@@ -69,11 +69,11 @@ app.get('/scrape', function(req, res){
     //       return chr.toUpperCase();
     //   });
     //   var link = $(element).find('a').attr("href");
-      var img = $(element).find('.post-thumb').attr('src');
     //   toString().split('(')[1].split(')')[0].replace(/&apos;/g,"");
     var title = $(element).find('h3').text().replace(/\s/g,'').replace('Drinks&Spirits', "").replace(/([a-z])([A-Z])/g, '$1 $2');
     // .replace(/\/n/g, "").replace(/\/t/g, "");
-      var link = $(element).find('a').attr("href");
+    var link = $(element).find('a').attr("href");
+    var img = $(element).find('.post-thumb > img').attr('src');
       
       // Save these results in an object that we'll push into the results array we defined earlier
       db.scrapedData.insert({
