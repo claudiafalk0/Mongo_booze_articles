@@ -57,26 +57,25 @@ app.get("/all", function(req, res) {
 // TIP: Think back to how you pushed website data
 // into an empty array in the last class. How do you
 // push it into a MongoDB collection instead?
-$('.carousel').carousel({
-    interval: 2000
-});
 
 app.get('/scrape', function(req, res){
 
-  axios.get("https://www.liquor.com/").then(function(response) {
+  axios.get("https://www.liquor.com/mosaic/shots/").then(function(response) {
     var $ = cheerio.load(response.data);
     
-    $(".post").each(function (i, element) {
+    $("#mosaic").each(function (i, element) {
       
-      var title = $(element).find('h3').text();
+      var title = $(element).find('.overlay').toString().split('/')[2].replace(/-/g, ' ').replace(/\b[a-z]/g, function(chr){
+          return chr.toUpperCase();
+      });
       var link = $(element).find('a').attr("href");
-      var img = $(element).find('.img-responsive');
+      var img = $(element).find('.clickable').toString().split('(')[1].split(')')[0].replace(/&apos;/g,"");
       
       // Save these results in an object that we'll push into the results array we defined earlier
       db.scrapedData.insert({
         title, 
         link,
-        img
+        image: img
       }, function(err, data){
         if (err) throw err;
         console.log(data);
