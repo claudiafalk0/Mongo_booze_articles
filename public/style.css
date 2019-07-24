@@ -1,0 +1,18 @@
+li{
+font-family: 'Source Sans Pro', sans-serif;
+};
+nav{
+    padding-bottom: 10px;
+};
+h1{
+    font-family: 'Source Sans Pro', sans-serif;
+    text-align: center;
+}
+.carousel-control-next, .carousel-control-prev{
+    width: 41% !important;
+
+}
+.saveArticle{
+    padding: 10px;
+    
+}
