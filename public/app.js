@@ -1,23 +1,25 @@
 function displayResults(data) {
     // Add to the table here...
     for (var i = 0; i < data.length; i++) {
-        $(".carousel-inner").append(`<div class='carousel-item'>
-            <img src='${data[i].img}' class='d-block w-100' style='padding-top: 25px;' alt='cocktail image'/>
+        $("#addCarousel").append(`<div class='carousel-item'>
+            <img src='${data[i].image}' class='d-block w-100' style='padding-top: 25px;' alt='cocktail image'/>
             <div class='carousel-caption d-none d-md-block'>
-            <h5>${data[i].title}</h5>
-            <a href='${data[i].link}'>Link to article</a>
+            <div id='infoBox'>${data[i].title}
+            <a class="btn btn-primary" href='https://www.liquor.com/${data[i].link}' role='button' style='text-align:center'>View Article</a>
             <button type='button' data-id= '${data[i]._id}' class="btn btn-primary" data-toggle='modal' data-target='noteModal' style = 'text-align:center'>
             Make Notes
             </button>
             </div>
+            </div>
             </div>`
     )};
+    $("#addCarousel").find('.carousel-item').first().addClass('active');
 };
 
 
 
-$.getJSON('/', function (data) {
-    displayResults(data)
+$.getJSON('/articles', function (data) {
+    displayResults(data);
 });
 
 $(document).on("click", "button", function() {
